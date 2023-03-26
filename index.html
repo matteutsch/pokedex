@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="img/icons/pokeball.png"
+      sizes="any"
+    />
 
-<head>
+    <title>Pokedex</title>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
+  </head>
 
-</head>
+  <body onload="loadAllPokemon()">
+    <header>
+      <img src="img/icons/pokemon_headline.png" />
+      <input
+        class="search"
+        type="text"
+        placeholder="  searching for Pokémon..."
+      />
+    </header>
+    
+    <div id="allPokemon" class="allPokemon"></div>
 
-<body>
-
-</body>
-
+    <div id="overlay" class="d-none" onclick="hidePokeCard()">
+      
+      </div>
+    </div>
+  </body>
 </html>
