@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background-color: #363942;
-  font-family: "Anton";
+  font-family: "Anybody";
 }
 p {
   margin: 0;
@@ -18,7 +18,7 @@ header {
   min-height: 64px;
   width: 100%;
   background-color: #9b9ca1;
-  padding: 8px;
+  padding: 16px;
   border-bottom: 1px solid #fecc00;
   z-index: 1000;
 }
@@ -35,7 +35,7 @@ header img {
   border: transparent;
   background-color: #363942;
   color: #fecc00;
-  padding-left: 8px;
+  padding: 8px;
 }
 .search:focus {
   outline: none;
@@ -61,13 +61,14 @@ h1 {
   align-items: center;
   min-width: 100px;
   min-height: 100px;
-  background-color: #246db3;
+  background-color: #000000;
   margin: 16px;
   padding: 16px;
   border-radius: 8px;
   border: 0.5px solid #fecc00;
   box-shadow: 0px 0px 11px #fecc00;
   opacity: 0.9;
+  color: #9b9ca1;
 }
 .singlePokemon img {
   width: 128px;
@@ -79,7 +80,6 @@ h1 {
   transform: scale(1.04);
   cursor: pointer;
   opacity: 1;
-  box-shadow: 0px 0px 22px #ffd52d;
 }
 .singlePokemon img:hover {
   transform: scale(1.1);
@@ -113,8 +113,8 @@ h1 {
 #pokedex {
   margin-top: 80px;
   min-height: 50vh;
-  background-color: #fb6c6c;
-  color: black;
+  background-color: black;
+  color: #9b9ca1;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -124,6 +124,8 @@ h1 {
   border-radius: 24px;
   border: 0.5px solid #fecc00;
   position: absolute;
+  box-shadow: 0px 0px 55px #ffd52d;
+  contain: content;
 }
 .info-container {
   background-color: white;
@@ -136,14 +138,15 @@ h1 {
   justify-content: center;
   border: 1px solid #246db3;
 }
-#pokemonImage {
+.pokemonImage {
   margin-top: -24px;
-  height: 240px;
-  width: 240px;
+  height: 224px;
+  width: 224px;
   object-fit: cover;
   filter: drop-shadow(12px 12px 25px rgba(0, 0, 0, 0.8));
   z-index: 100;
 }
+
 #pokemonName {
   font-size: 44px;
   margin: 0;
@@ -171,9 +174,40 @@ td:nth-child(2) {
   text-align: center;
 }
 
+.presentation {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+.sides {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  object-fit: cover;
+}
+.miniMe {
+  width: 56px;
+  height: 56px;
+}
+.miniMe:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 @font-face {
-  font-family: "Anton";
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Anybody";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/anton-v23-latin-regular.woff") format("woff");
+  src: url("../fonts/anybody-v4-latin-regular.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/anybody-v4-latin-regular.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/anybody-v4-latin-regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("../fonts/anybody-v4-latin-regular.woff")
+      format("woff"),
+    /* Modern Browsers */ url("../fonts/anybody-v4-latin-regular.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */
+      url("../fonts/anybody-v4-latin-regular.svg#Anybody") format("svg"); /* Legacy iOS */
 }
