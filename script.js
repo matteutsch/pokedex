@@ -1,8 +1,10 @@
 let sourceOfPokemon = [];
+let limit = 40;
+//let filteredPokemon = [];
 
 async function loadAllPokemon() {
   // get all pokemon for display in allPokemon
-  let url = `https://pokeapi.co/api/v2/pokemon?limit=50&offset=0`;
+  let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
   let response = await fetch(url);
   allPokemon = await response.json();
 
@@ -10,6 +12,14 @@ async function loadAllPokemon() {
 
   renderAllPokemon();
 }
+
+//function loadMorePokemon() {
+//  window.onscroll = function (ev) {
+//    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+//      limit += 20;
+//    }
+//  };
+//}
 
 function renderAllPokemon() {
   // rendering singlePokemon in allPokemon with few infos
@@ -25,28 +35,12 @@ function renderAllPokemon() {
   }
 }
 
-async function loadPokemonInfo(i) {
-  // get currentPokemon for single informations
-  let url = allPokemon["results"][i]["url"];
-  let response = await fetch(url);
-  let currentPokemon = await response.json();
-  sourceOfPokemon.push(currentPokemon);
-
-  let pokeImage = currentPokemon["sprites"]["other"]["home"]["front_default"];
-  let pokeType =
-    currentPokemon["types"][0]["type"]["name"].charAt(0).toUpperCase() +
-    currentPokemon["types"][0]["type"]["name"].slice(1);
-
-  console.log("pokeImage", pokeImage);
-
-  fillInfos(i, pokeImage, pokeType);
-  changeAllTypeColors(pokeType, pokeImage, i);
-}
-
-function fillInfos(i, pokeImage, pokeType) {
-  // fill infos into smallpokemon cards
-  document.getElementById(`pokeImage${i}`).src = pokeImage;
-  document.getElementById(`pokeType${i}`).innerHTML = pokeType;
+function filterPokemon() {
+  let input = document.getElementById("search").value;
+  let filteredPokemon = sourceOfPokemon.filter(function (input) {
+    return sourceOfPokemon.includes(input);
+  });
+  console.log("filteredpokemon", filteredPokemon);
 }
 
 function generateAllPokemonHTML(i, pokemonName) {
@@ -61,16 +55,45 @@ function generateAllPokemonHTML(i, pokemonName) {
   `;
 }
 
+async function loadPokemonInfo(i) {
+  // get currentPokemon for single informations
+  let url = allPokemon["results"][i]["url"];
+  let response = await fetch(url);
+  let currentPokemon = await response.json();
+  sourceOfPokemon.push(currentPokemon);
+
+  let pokeImage = currentPokemon["sprites"]["other"]["home"]["front_default"];
+  let pokeType =
+    currentPokemon["types"][0]["type"]["name"].charAt(0).toUpperCase() +
+    currentPokemon["types"][0]["type"]["name"].slice(1);
+
+  fillInfos(i, pokeImage, pokeType);
+  changeAllTypeColors(pokeType, pokeImage, i);
+}
+
+function fillInfos(i, pokeImage, pokeType) {
+  // fill infos into smallpokemon cards
+  document.getElementById(`pokeImage${i}`).src = pokeImage;
+  document.getElementById(`pokeType${i}`).innerHTML = pokeType;
+}
+
 function showPokeCard(i) {
-  console.log(i, "source", sourceOfPokemon[i]);
-  // rendering HTML for currentpokemon
+  // rendering HTML for currentpokemon + previous and next pokemon function
   document.body.style.overflow = "hidden";
+  let prevIndex = sourceOfPokemon.length - 1;
+  if (i != 0) {
+    prevIndex = i - 1;
+  }
+  let nextIndex = 0;
+  if (i != sourceOfPokemon.length - 1) {
+    nextIndex = i + 1;
+  }
+  let prevImg =
+    sourceOfPokemon[prevIndex]["sprites"]["other"]["home"]["front_default"];
+  let nextImg =
+    sourceOfPokemon[nextIndex]["sprites"]["other"]["home"]["front_default"];
   let pokeImage =
     sourceOfPokemon[i]["sprites"]["other"]["home"]["front_default"];
-  let prevImg =
-    sourceOfPokemon[i - 1]["sprites"]["other"]["home"]["front_default"];
-  let nextImg =
-    sourceOfPokemon[i + 1]["sprites"]["other"]["home"]["front_default"];
   let pokeType =
     sourceOfPokemon[i]["types"][0]["type"]["name"].charAt(0).toUpperCase() +
     sourceOfPokemon[i]["types"][0]["type"]["name"].slice(1);
@@ -83,6 +106,7 @@ function showPokeCard(i) {
   let pokeDef = sourceOfPokemon[i]["stats"][2]["base_stat"];
 
   let pokeCard = document.getElementById("overlay");
+
   pokeCard.innerHTML = ``;
   pokeCard.innerHTML = `
   <div id="pokedex" onclick="event.stopPropagation()" >
@@ -91,9 +115,11 @@ function showPokeCard(i) {
     <p id="id" class="id"># ${i + 1}</p>
   </div>
   <div class="presentation">
-    <div class="sides"><img id="firstPokemon" onclick="previousPokemon(${i})" class="miniMe" src="${prevImg}" /></div>
+    <div class="sides"><img id="firstPokemon" onclick="showPokeCard(${prevIndex})" class="miniMe" src="${prevImg}" /></div>
     <div class="center"><img id="pokemonImage" class="pokemonImage" src="${pokeImage}" /></div>
-    <div class="sides"><img id="lastPokemon" onclick="nextPokemon(${i})" class="miniMe" src="${nextImg}" /></div>
+    <div class="sides"><img id="lastPokemon" onclick="showPokeCard(${
+      (i, nextIndex)
+    })" class="miniMe" src="${nextImg}" /></div>
   </div>
   <div class="info-container" id="infoContainer">
     <table>
@@ -129,27 +155,6 @@ function hidePokeCard() {
   document.body.style.overflow = "auto";
 }
 
-function previousPokemon(i, pokeImage) {
-  console.log("i", i);
-  if (i > 1) {
-    i--;
-    showPokeCard(i);
-  } else {
-    i = 0;
-    pokeImage = sourceOfPokemon[i]["sprites"]["other"]["home"]["front_default"];
-    document.getElementById("firstPokemon").style.opacity = "0";
-    showPokeCard(i);
-  }
-}
-
-function nextPokemon(i) {
-  if (i < sourceOfPokemon.length) {
-    showPokeCard(i + 1);
-  } else {
-    showPokeCard(0);
-  }
-}
-
 ////////////////////////////////colorChanges////////////////////////////////
 
 function changeAllTypeColors(pokeType, pokeImage, i) {
@@ -167,7 +172,7 @@ function changeAllTypeColors(pokeType, pokeImage, i) {
     color = "orange";
     colorChangeSmallCards(i, color);
   } else if (pokeType == "Normal") {
-    color = "white";
+    color = "#777777";
     colorChangeSmallCards(i, color);
   } else if (pokeType == "Poison") {
     color = "#800080";
@@ -180,6 +185,18 @@ function changeAllTypeColors(pokeType, pokeImage, i) {
     colorChangeSmallCards(i, color);
   } else if (pokeType == "Fairy") {
     color = "pink";
+    colorChangeSmallCards(i, color);
+  } else if (pokeType == "Rock") {
+    color = "rgb(224, 203, 143)";
+    colorChangeSmallCards(i, color);
+  } else if (pokeType == "Ghost") {
+    color = "white";
+    colorChangeSmallCards(i, color);
+  } else if (pokeType == "Psychic") {
+    color = "rgb(180, 17, 230)";
+    colorChangeSmallCards(i, color);
+  } else if (pokeType == "Fighting") {
+    color = "rgb(212, 141, 0)";
     colorChangeSmallCards(i, color);
   }
 }
@@ -199,7 +216,7 @@ function changeSingleTypeColor(pokeType) {
     color = "orange";
     colorChangeBigCard(color);
   } else if (pokeType == "Normal") {
-    color = "white";
+    color = "#777777";
     colorChangeBigCard(color);
   } else if (pokeType == "Poison") {
     color = "#800080";
@@ -213,23 +230,32 @@ function changeSingleTypeColor(pokeType) {
   } else if (pokeType == "Fairy") {
     color = "pink";
     colorChangeBigCard(color);
+  } else if (pokeType == "Rock") {
+    color = "rgb(224, 203, 143)";
+    colorChangeBigCard(color);
+  } else if (pokeType == "Ghost") {
+    color = "white";
+    colorChangeBigCard(color);
+  } else if (pokeType == "Psychic") {
+    color = "rgb(180, 17, 230)";
+    colorChangeBigCard(color);
+  } else if (pokeType == "Fighting") {
+    color = "rgb(212, 141, 0)";
+    colorChangeBigCard(color);
   }
 }
 
 function colorChangeSmallCards(i, color) {
   document.getElementById(
     `singlePokemon${i}`
-  ).style.border = `0.5px solid ${color}`;
-  document.getElementById(
-    `singlePokemon${i}`
-  ).style.boxShadow = `0px 0px 22px ${color}`;
+  ).style.border = `2px solid ${color}`;
   document.getElementById(
     `pokeImage${i}`
   ).style.filter = `drop-shadow(0px 0px 25px ${color})`;
 }
 
 function colorChangeBigCard(color) {
-  document.getElementById(`pokedex`).style.border = `0.5px solid ${color}`;
+  document.getElementById(`pokedex`).style.border = `2px solid ${color}`;
   document.getElementById(`pokedex`).style.boxShadow = `0px 0px 128px ${color}`;
   document.getElementById(
     `pokemonImage`
