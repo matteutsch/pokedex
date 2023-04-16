@@ -12,7 +12,7 @@
 		<script src="script.js"></script>
 	</head>
 
-	<body onload="loadAllPokemon()">
+	<body onload="loadStartPokemon()">
 		<header>
 			<img src="img/icons/pokemon_headline.png" />
 			<div>
@@ -24,6 +24,7 @@
 		<div id="allPokemon" class="allPokemon"></div>
 
 		<div id="overlay" class="d-none" onclick="hidePokeCard()"></div>
-		<button onclick="loadMorePokemon()">Load More Pokèmon</button>
+		<button class="loadMore" onclick="loadMorePokemon()">Load More Pokèmon</button>
+		<!-- -->
 	</body>
 </html>

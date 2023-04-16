@@ -1,51 +1,87 @@
 let sourceOfPokemon = [];
 let allPokemon = [];
-let filteredPokemon = [];
+let onlyPokemonNames = [];
 let limit;
-async function loadAllPokemon() {
+let foundPokemon = [];
+
+function filterPokemon() {
+	let input = document.getElementById('search').value;
+	let number = 1;
+	for (let i = 0; i < onlyPokemonNames.length; i++) {
+		console.log(onlyPokemonNames[i]);
+		let index = onlyPokemonNames[i].indexOf(input);
+		//let lastIndex = onlyPokemonNames[i].lastIndexOf(input);
+		if (
+			index == -1 //&& lastIndex == -1
+		) {
+			console.log("sorry bro, deine buchstaben gibts nich'");
+		} else if (
+			typeof index !== typeof number //|| lastIndex == -1
+		) {
+			console.log('notaNUMBER');
+		} else {
+			console.log('i will push i:', i);
+			if (8 in foundPokemon) {
+				console.log('ich mach gar nichts');
+			} else {
+				foundPokemon = allPokemon[i];
+				console.log('foundPokemon', foundPokemon);
+			}
+		}
+		console.log('index', index, 'lastIndex');
+	}
+}
+
+async function loadStartPokemon() {
 	// get all pokemon for display in allPokemon
 
 	limit = 40;
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 	let response = await fetch(url);
 	allPokemon = await response.json();
+
 	renderAllPokemon();
 	console.log('alle pokemon', allPokemon);
+
+	//endOfScreen();
+	loadMorePokemon();
 }
 
+//function endOfScreen() {
+//	window.onscroll = function () {
+//		if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+//			loadMorePokemon();
+//		}
+//	};
+//}
+
 async function loadMorePokemon() {
-	//window.onscroll = function () {
-	//	if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-	//		limit = limit + 20;
-	//		console.log('limit:', limit);
-	//		loadAllPokemon();
-	//	}
-	//};
 	startValue = limit;
 	if (limit == 40) {
-		limit = limit + 20;
-		console.log('limitlimitlimit +20', limit);
+		limit += 20;
+		console.log('limit=limit +20', limit);
 	} else if (limit >= 60) {
 		limit += 20;
 		console.log('limit +20', limit);
 	}
+
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 	let response = await fetch(url);
 	allPokemon = await response.json();
 	renderMorePokemon(startValue, limit);
 }
+
 function renderMorePokemon(startValue, limit) {
 	// rendering MORE singlePokemon in allPokemon with few infos
-	console.log('startval:', startValue, 'limit:', limit);
 	let pokedex = allPokemon['results'];
 
 	for (let i = startValue; i < limit; i++) {
 		let pokemonName = pokedex[i]['name'].charAt(0).toUpperCase() + pokedex[i]['name'].slice(1);
 		document.getElementById(`allPokemon`).innerHTML += generateAllPokemonHTML(i, pokemonName);
+		onlyPokemonNames.push(allPokemon['results'][i]['name']);
 		loadPokemonInfo(i);
 	}
 }
-
 function renderAllPokemon() {
 	// rendering singlePokemon in allPokemon with few infos
 	let pokedex = allPokemon['results'];
@@ -53,17 +89,10 @@ function renderAllPokemon() {
 	for (let i = 0; i < pokedex.length; i++) {
 		let pokemonName = pokedex[i]['name'].charAt(0).toUpperCase() + pokedex[i]['name'].slice(1);
 		document.getElementById(`allPokemon`).innerHTML += generateAllPokemonHTML(i, pokemonName);
+		onlyPokemonNames.push(allPokemon['results'][i]['name']);
 		loadPokemonInfo(i);
 	}
 }
-
-//function filterPokemon() {
-//	let input = document.getElementById('search').value;
-//	let filteredPokemon = sourceOfPokemon.filter((input) => {
-//		return sourceOfPokemon.includes(input);
-//	});
-//	console.log('filteredpokemon', sourceOfPokemon);
-//}
 
 function generateAllPokemonHTML(i, pokemonName) {
 	//returning html for renderAllPokemon()

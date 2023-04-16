@@ -199,6 +199,21 @@ td:nth-child(2) {
 	transform: scale(1.1);
 }
 
+.loadMore {
+	position: relative;
+	bottom: 24px;
+	left: 50vw;
+	background-color: #1f2023;
+	color: #fecc00;
+	font-size: 24px;
+	border-radius: 8px;
+	border: 2px solid #fecc00;
+}
+.loadMore:hover {
+	cursor: pointer;
+	transform: scale(1.05);
+}
+
 /* custom scrollbar */
 /* width */
 ::-webkit-scrollbar {
