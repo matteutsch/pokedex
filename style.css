@@ -1,236 +1,233 @@
 body {
-  margin: 0;
-  background-color: #363942;
-  background-image: url("img/icons/pokeball_transparent.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-attachment: fixed;
-  background-position-x: center;
-  background-position-y: 25vh;
-  font-family: "Anybody";
+	margin: 0;
+	background-color: #363942;
+	background-image: url('img/icons/pokeball_transparent.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-attachment: fixed;
+	background-position-x: center;
+	background-position-y: 25vh;
+	font-family: 'Anybody';
 }
 p {
-  margin: 0;
+	margin: 0;
 }
 .d-none {
-  display: none !important;
+	display: none !important;
 }
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  min-height: 64px;
-  background-color: #9b9ca1;
-  padding: 16px;
-  border-bottom: 1px solid #fecc00;
-  z-index: 1000;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	min-height: 64px;
+	background-color: #9b9ca1;
+	padding: 16px;
+	border-bottom: 1px solid #fecc00;
+	z-index: 1000;
 }
 header img {
-  margin-left: 72px;
-  height: 56px;
-  object-fit: cover;
-  filter: drop-shadow(1px 11px 6px rgba(0, 0, 0, 0.8));
+	margin-left: 72px;
+	height: 56px;
+	object-fit: cover;
+	filter: drop-shadow(1px 11px 6px rgba(0, 0, 0, 0.8));
 }
 .search {
-  margin-right: 96px;
-  min-width: 240px;
-  border-radius: 8px;
-  border: transparent;
-  background-color: #363942;
-  color: #fecc00;
-  padding: 8px;
+	margin-right: 96px;
+	min-width: 240px;
+	border-radius: 8px;
+	border: transparent;
+	background-color: #363942;
+	color: #fecc00;
+	padding: 8px;
 }
 .search:focus {
-  outline: none;
+	outline: none;
 }
 
 h1 {
-  margin-top: 0;
-  margin-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 .allPokemon {
-  margin-top: 72px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 32px;
+	margin-top: 72px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 32px;
 }
 
 .singlePokemon {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-items: center;
-  min-width: 100px;
-  min-height: 100px;
-  background-color: #1f2023;
-  margin: 16px;
-  padding: 16px;
-  border-radius: 8px;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
+	min-width: 100px;
+	min-height: 100px;
+	background-color: #1f2023;
+	margin: 16px;
+	padding: 16px;
+	border-radius: 8px;
 
-  color: #9b9ca1;
+	color: #9b9ca1;
 }
 .singlePokemon img {
-  width: 128px;
-  filter: drop-shadow(12px 12px 25px rgba(0, 0, 0, 0.8));
-  margin-bottom: 16px;
-  opacity: 0.9;
+	width: 128px;
+	filter: drop-shadow(12px 12px 25px rgba(0, 0, 0, 0.8));
+	margin-bottom: 16px;
+	opacity: 0.9;
 }
 .singlePokemon:hover {
-  transform: scale(1.04);
-  cursor: pointer;
-  opacity: 1;
-  box-shadow: 0px 0px 22px rgb(29, 29, 29);
+	transform: scale(1.04);
+	cursor: pointer;
+	opacity: 1;
+	box-shadow: 0px 0px 22px rgb(29, 29, 29);
 }
 .singlePokemon img:hover {
-  transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .miniPoke {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #fecc00;
-  padding-bottom: 8px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #fecc00;
+	padding-bottom: 8px;
 }
 .type {
-  width: 100%;
-  text-align: center;
-  border-top: 1px solid #fecc00;
-  padding-top: 8px;
+	width: 100%;
+	text-align: center;
+	border-top: 1px solid #fecc00;
+	padding-top: 8px;
 }
 
 #overlay {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
 }
 #pokedex {
-  margin-top: 80px;
-  min-height: 50vh;
-  background-color: #363942;
-  color: #9b9ca1;
-  display: flex;
+	margin-top: 80px;
+	min-height: 50vh;
+	background-color: #363942;
+	color: #9b9ca1;
+	display: flex;
 
-  flex-direction: column;
-  align-items: center;
-  padding: 24px;
-  padding-bottom: 0 !important;
-  border-radius: 24px;
-  position: absolute;
-  contain: content;
-  z-index: 1000;
+	flex-direction: column;
+	align-items: center;
+	padding: 24px;
+	padding-bottom: 0 !important;
+	border-radius: 24px;
+	position: absolute;
+	contain: content;
+	z-index: 1000;
 }
 .info-container {
-  background-color: white;
-  border-radius: 24px;
-  min-height: 100px;
-  padding: 24px;
-  width: 100%;
-  margin-top: 24px;
-  display: flex;
-  justify-content: center;
-  border: 1px solid #246db3;
+	background-color: white;
+	border-radius: 24px;
+	min-height: 100px;
+	padding: 24px;
+	width: 100%;
+	margin-top: 24px;
+	display: flex;
+	justify-content: center;
+	border: 1px solid #246db3;
 }
 .pokemonImage {
-  margin-top: -24px;
-  height: 224px;
-  width: 224px;
-  object-fit: cover;
-  filter: drop-shadow(12px 12px 25px rgba(0, 0, 0, 0.8));
-  z-index: 100;
+	margin-top: -24px;
+	height: 224px;
+	width: 224px;
+	object-fit: cover;
+	filter: drop-shadow(12px 12px 25px rgba(0, 0, 0, 0.8));
+	z-index: 100;
 }
 
 #pokemonName {
-  font-size: 44px;
-  margin: 0;
+	font-size: 44px;
+	margin: 0;
 }
 .id {
-  font-size: 23px;
-  margin: 0;
+	font-size: 23px;
+	margin: 0;
 }
 .card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #fecc00;
-  width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 24px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #fecc00;
+	width: 100%;
 }
 
 table {
-  border-radius: 24px;
-  border-spacing: 2px;
+	border-radius: 24px;
+	border-spacing: 2px;
 }
 td:nth-child(2) {
-  padding-left: 32px;
-  text-align: center;
+	padding-left: 32px;
+	text-align: center;
 }
 
 .presentation {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-wrap: nowrap;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	flex-wrap: nowrap;
 }
 .sides {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  object-fit: cover;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	object-fit: cover;
 }
 .miniMe {
-  width: 56px;
-  height: 56px;
+	width: 56px;
+	height: 56px;
 }
 .miniMe:hover {
-  cursor: pointer;
-  transform: scale(1.1);
+	cursor: pointer;
+	transform: scale(1.1);
 }
 
 /* custom scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  width: 16px;
+	width: 16px;
+	background-color: transparent;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 3px #9b9ca1;
-  border-radius: 8px;
+	box-shadow: inset 0 0 3px #9b9ca1;
+	border-radius: 8px;
+	background-color: #363942;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #1f2023;
-  box-shadow: inset 0 0 4px #fecc00;
-  border-radius: 8px;
+	background: #1f2023;
+	box-shadow: inset 0 0 4px #fecc00;
+	border-radius: 8px;
 }
 
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: "Anybody";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/anybody-v4-latin-regular.eot"); /* IE9 Compat Modes */
-  src: url("../fonts/anybody-v4-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/anybody-v4-latin-regular.woff2") format("woff2"),
-    /* Super Modern Browsers */ url("../fonts/anybody-v4-latin-regular.woff")
-      format("woff"),
-    /* Modern Browsers */ url("../fonts/anybody-v4-latin-regular.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */
-      url("../fonts/anybody-v4-latin-regular.svg#Anybody") format("svg"); /* Legacy iOS */
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Anybody';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../fonts/anybody-v4-latin-regular.eot'); /* IE9 Compat Modes */
+	src: url('../fonts/anybody-v4-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/anybody-v4-latin-regular.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('../fonts/anybody-v4-latin-regular.woff') format('woff'),
+		/* Modern Browsers */ url('../fonts/anybody-v4-latin-regular.ttf') format('truetype'),
+		/* Safari, Android, iOS */ url('../fonts/anybody-v4-latin-regular.svg#Anybody') format('svg'); /* Legacy iOS */
 }
