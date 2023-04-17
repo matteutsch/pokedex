@@ -6,30 +6,45 @@ let foundPokemon = [];
 
 function filterPokemon() {
 	let input = document.getElementById('search').value;
-	let number = 1;
+	input = input.toLowerCase();
 	for (let i = 0; i < onlyPokemonNames.length; i++) {
 		console.log(onlyPokemonNames[i]);
 		let index = onlyPokemonNames[i].indexOf(input);
-		//let lastIndex = onlyPokemonNames[i].lastIndexOf(input);
-		if (
-			index == -1 //&& lastIndex == -1
-		) {
+		if (index == -1) {
 			console.log("sorry bro, deine buchstaben gibts nich'");
-		} else if (
-			typeof index !== typeof number //|| lastIndex == -1
-		) {
-			console.log('notaNUMBER');
 		} else {
+			let name = allPokemon['results'][i]['name'];
 			console.log('i will push i:', i);
-			if (8 in foundPokemon) {
-				console.log('ich mach gar nichts');
+			if (name in foundPokemon) {
+				console.log('pokemon already found :), no need to insert it into the array foundPokemon[i]');
 			} else {
-				foundPokemon = allPokemon[i];
-				console.log('foundPokemon', foundPokemon);
+				// copy one pokemon to foundPokemon where ass i is the id of the pokemon
+				foundPokemon[name] = {};
+				foundPokemon[name]['results'] = {};
+				foundPokemon[name]['results'][i] = allPokemon['results'][i];
+				console.log('foundPokemon:', foundPokemon);
 			}
 		}
-		console.log('index', index, 'lastIndex');
+		console.log('index', index);
 	}
+	renderFoundPokemon();
+}
+
+function renderFoundPokemon() {
+	// rendering singlePokemon in allPokemon with few infos
+	document.getElementById(`allPokemon`).innerHTML = '';
+	for (let name in foundPokemon) {
+		let pokemonName = name.charAt(0).toUpperCase() + name.slice(1);
+
+		for (let i in foundPokemon[name]['results']) {
+			i = parseInt(i, 10);
+			console.log('i=', i);
+			console.log('typeof i', typeof i);
+			document.getElementById(`allPokemon`).innerHTML += generateAllPokemonHTML(i, pokemonName);
+			loadPokemonInfo(i);
+		}
+	}
+	foundPokemon = [];
 }
 
 async function loadStartPokemon() {
@@ -82,6 +97,7 @@ function renderMorePokemon(startValue, limit) {
 		loadPokemonInfo(i);
 	}
 }
+
 function renderAllPokemon() {
 	// rendering singlePokemon in allPokemon with few infos
 	let pokedex = allPokemon['results'];
@@ -98,7 +114,7 @@ function generateAllPokemonHTML(i, pokemonName) {
 	//returning html for renderAllPokemon()
 	return `
   <div id="singlePokemon${i}" class="singlePokemon" onclick="showPokeCard(${i})">
-  <div class="miniPoke"> <p># ${i + 1}</p><p>${pokemonName}</p>
+  <div class="PokeHeader"> <p># ${i + 1}</p><p>${pokemonName}</p>
   </div>
   <img id="pokeImage${i}" />
   <div id="pokeType${i}" class="type">type</div>
@@ -157,9 +173,9 @@ function showPokeCard(i) {
     <p id="id" class="id"># ${i + 1}</p>
   </div>
   <div class="presentation">
-    <div class="sides"><img id="firstPokemon" onclick="showPokeCard(${prevIndex})" class="miniMe" src="${prevImg}" /></div>
+    <div class="sides"><img id="firstPokemon" onclick="showPokeCard(${prevIndex})" class="miniPoke" src="${prevImg}" /></div>
     <div class="center"><img id="pokemonImage" class="pokemonImage" src="${pokeImage}" /></div>
-    <div class="sides"><img id="lastPokemon" onclick="showPokeCard(${(i, nextIndex)})" class="miniMe" src="${nextImg}" /></div>
+    <div class="sides"><img id="lastPokemon" onclick="showPokeCard(${(i, nextIndex)})" class="miniPoke" src="${nextImg}" /></div>
   </div>
   <div class="info-container" id="infoContainer">
     <table>
@@ -193,105 +209,4 @@ function showPokeCard(i) {
 function hidePokeCard() {
 	document.getElementById('overlay').classList.add('d-none');
 	document.body.style.overflow = 'auto';
-}
-
-////////////////////////////////colorChanges////////////////////////////////
-
-function changeAllTypeColors(pokeType, pokeImage, i) {
-	let color;
-	if (pokeType == 'Grass') {
-		color = '#028900';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Fire') {
-		color = '#ff1903';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Water') {
-		color = '#303eff';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Bug') {
-		color = 'orange';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Normal') {
-		color = '#777777';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Poison') {
-		color = '#800080';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Electric') {
-		color = '#fecc00';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Ground') {
-		color = 'rgb(132, 45, 1)';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Fairy') {
-		color = 'pink';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Rock') {
-		color = 'rgb(224, 203, 143)';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Ghost') {
-		color = 'white';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Psychic') {
-		color = 'rgb(180, 17, 230)';
-		colorChangeSmallCards(i, color);
-	} else if (pokeType == 'Fighting') {
-		color = 'rgb(212, 141, 0)';
-		colorChangeSmallCards(i, color);
-	}
-}
-
-function changeSingleTypeColor(pokeType) {
-	let color;
-	if (pokeType == 'Grass') {
-		color = '#028900';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Fire') {
-		color = '#ff1903';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Water') {
-		color = '#303eff';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Bug') {
-		color = 'orange';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Normal') {
-		color = '#777777';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Poison') {
-		color = '#800080';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Electric') {
-		color = '#fecc00';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Ground') {
-		color = 'rgb(132, 45, 1)';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Fairy') {
-		color = 'pink';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Rock') {
-		color = 'rgb(224, 203, 143)';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Ghost') {
-		color = 'white';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Psychic') {
-		color = 'rgb(180, 17, 230)';
-		colorChangeBigCard(color);
-	} else if (pokeType == 'Fighting') {
-		color = 'rgb(212, 141, 0)';
-		colorChangeBigCard(color);
-	}
-}
-
-function colorChangeSmallCards(i, color) {
-	document.getElementById(`singlePokemon${i}`).style.border = `2px solid ${color}`;
-	document.getElementById(`pokeImage${i}`).style.filter = `drop-shadow(0px 0px 25px ${color})`;
-}
-
-function colorChangeBigCard(color) {
-	document.getElementById(`pokedex`).style.border = `2px solid ${color}`;
-	document.getElementById(`pokedex`).style.boxShadow = `0px 0px 128px ${color}`;
-	document.getElementById(`pokemonImage`).style.filter = `drop-shadow(0px 0px 25px ${color})`;
 }

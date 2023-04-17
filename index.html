@@ -10,6 +10,7 @@
 
 		<link rel="stylesheet" href="style.css" />
 		<script src="script.js"></script>
+		<script src="typeColors.js"></script>
 	</head>
 
 	<body onload="loadStartPokemon()">
@@ -17,14 +18,15 @@
 			<img src="img/icons/pokemon_headline.png" />
 			<div>
 				<input class="search" id="search" type="text" placeholder="  searching for Pokémon..." oninput="filterPokemon()" />
-				<button></button>
 			</div>
 		</header>
 
 		<div id="allPokemon" class="allPokemon"></div>
 
 		<div id="overlay" class="d-none" onclick="hidePokeCard()"></div>
-		<button class="loadMore" onclick="loadMorePokemon()">Load More Pokèmon</button>
+		<div class="bottom">
+			<button class="loadMore" onclick="loadMorePokemon()">Load More Pokémon</button>
+		</div>
 		<!-- -->
 	</body>
 </html>
