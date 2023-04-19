@@ -8,17 +8,15 @@ function filterPokemon() {
 	let input = document.getElementById('search').value;
 	input = input.toLowerCase();
 	for (let i = 0; i < onlyPokemonNames.length; i++) {
-		console.log(onlyPokemonNames[i]);
 		let index = onlyPokemonNames[i].indexOf(input);
 		if (index == -1) {
-			console.log("sorry bro, deine buchstaben gibts nich'");
+			console.log('nothing found');
 		} else {
 			let name = allPokemon['results'][i]['name'];
 			console.log('i will push i:', i);
 			if (name in foundPokemon) {
-				console.log('pokemon already found :), no need to insert it into the array foundPokemon[i]');
+				console.log('pokemon already found :)');
 			} else {
-				// copy one pokemon to foundPokemon where ass i is the id of the pokemon
 				foundPokemon[name] = {};
 				foundPokemon[name]['results'] = {};
 				foundPokemon[name]['results'][i] = allPokemon['results'][i];
@@ -28,23 +26,6 @@ function filterPokemon() {
 		console.log('index', index);
 	}
 	renderFoundPokemon();
-}
-
-function renderFoundPokemon() {
-	// rendering singlePokemon in allPokemon with few infos
-	document.getElementById(`allPokemon`).innerHTML = '';
-	for (let name in foundPokemon) {
-		let pokemonName = name.charAt(0).toUpperCase() + name.slice(1);
-
-		for (let i in foundPokemon[name]['results']) {
-			i = parseInt(i, 10);
-			console.log('i=', i);
-			console.log('typeof i', typeof i);
-			document.getElementById(`allPokemon`).innerHTML += generateAllPokemonHTML(i, pokemonName);
-			loadPokemonInfo(i);
-		}
-	}
-	foundPokemon = [];
 }
 
 async function loadStartPokemon() {
@@ -57,18 +38,8 @@ async function loadStartPokemon() {
 
 	renderAllPokemon();
 	console.log('alle pokemon', allPokemon);
-
-	//endOfScreen();
 	loadMorePokemon();
 }
-
-//function endOfScreen() {
-//	window.onscroll = function () {
-//		if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-//			loadMorePokemon();
-//		}
-//	};
-//}
 
 async function loadMorePokemon() {
 	startValue = limit;
@@ -84,42 +55,6 @@ async function loadMorePokemon() {
 	let response = await fetch(url);
 	allPokemon = await response.json();
 	renderMorePokemon(startValue, limit);
-}
-
-function renderMorePokemon(startValue, limit) {
-	// rendering MORE singlePokemon in allPokemon with few infos
-	let pokedex = allPokemon['results'];
-
-	for (let i = startValue; i < limit; i++) {
-		let pokemonName = pokedex[i]['name'].charAt(0).toUpperCase() + pokedex[i]['name'].slice(1);
-		document.getElementById(`allPokemon`).innerHTML += generateAllPokemonHTML(i, pokemonName);
-		onlyPokemonNames.push(allPokemon['results'][i]['name']);
-		loadPokemonInfo(i);
-	}
-}
-
-function renderAllPokemon() {
-	// rendering singlePokemon in allPokemon with few infos
-	let pokedex = allPokemon['results'];
-
-	for (let i = 0; i < pokedex.length; i++) {
-		let pokemonName = pokedex[i]['name'].charAt(0).toUpperCase() + pokedex[i]['name'].slice(1);
-		document.getElementById(`allPokemon`).innerHTML += generateAllPokemonHTML(i, pokemonName);
-		onlyPokemonNames.push(allPokemon['results'][i]['name']);
-		loadPokemonInfo(i);
-	}
-}
-
-function generateAllPokemonHTML(i, pokemonName) {
-	//returning html for renderAllPokemon()
-	return `
-  <div id="singlePokemon${i}" class="singlePokemon" onclick="showPokeCard(${i})">
-  <div class="PokeHeader"> <p># ${i + 1}</p><p>${pokemonName}</p>
-  </div>
-  <img id="pokeImage${i}" />
-  <div id="pokeType${i}" class="type">type</div>
-  </div>
-  `;
 }
 
 async function loadPokemonInfo(i) {
@@ -178,6 +113,7 @@ function showPokeCard(i) {
     <div class="sides"><img id="lastPokemon" onclick="showPokeCard(${(i, nextIndex)})" class="miniPoke" src="${nextImg}" /></div>
   </div>
   <div class="info-container" id="infoContainer">
+  <div w3-include-html="chart.html"></div>
     <table>
       <tr>
         <td>Type :</td>

@@ -10,15 +10,17 @@
 
 		<link rel="stylesheet" href="style.css" />
 		<script src="script.js"></script>
-		<script src="typeColors.js"></script>
+		<script src="templates/typeColors.js"></script>
+		<script src="templates/render.js"></script>
 	</head>
 
-	<body onload="loadStartPokemon()">
-		<header>
+	<body onclick="document.getElementById('search').value = ''" onload="loadStartPokemon()">
+		<header onclick="document.getElementById('search').value = ''">
 			<img src="img/icons/pokemon_headline.png" />
 			<div>
-				<input class="search" id="search" type="text" placeholder="  searching for Pokémon..." oninput="filterPokemon()" />
+				<input class="search" id="search" type="text" placeholder="" oninput="filterPokemon()" />
 			</div>
+			<!--onfocus="this.placeholder= 'search for Pokémon...'"-->
 		</header>
 
 		<div id="allPokemon" class="allPokemon"></div>
@@ -27,6 +29,5 @@
 		<div class="bottom">
 			<button class="loadMore" onclick="loadMorePokemon()">Load More Pokémon</button>
 		</div>
-		<!-- -->
 	</body>
 </html>
