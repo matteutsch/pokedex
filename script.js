@@ -2,7 +2,7 @@ let sourceOfPokemon = [];
 let allPokemon = [];
 let onlyPokemonNames = [];
 let limit;
-let maxLimit = 160;
+let maxLimit = 300;
 let foundPokemon = [];
 
 function filterPokemon() {
@@ -43,7 +43,7 @@ async function loadMorePokemon() {
 	if (limit == 40) {
 		limit += 20;
 	} else if (limit >= 60) {
-		limit += 20;
+		limit += 40;
 	}
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 	let response = await fetch(url);
