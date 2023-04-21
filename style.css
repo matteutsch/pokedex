@@ -39,19 +39,15 @@ header img {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-right: 72px;
 }
-.header-right img {
-	width: 32px;
-	height: 32px;
-	filter: drop-shadow(1 1 1 rgba(0, 0, 0, 0.2));
-}
+
 .header-right img:hover {
 	transform: scale(1.05);
 	cursor: pointer;
 }
 .search {
 	font-size: 20px;
-	margin-right: 96px;
 	width: 56px;
 	height: 56px;
 	border-radius: 100%;
@@ -77,7 +73,6 @@ header img {
 	min-width: 200px;
 	height: 32px;
 	background-color: #363942;
-	background-image: '';
 }
 
 .search:focus {
@@ -91,6 +86,10 @@ header img {
 	min-width: 200px;
 	height: 32px;
 	background-color: #363942;
+}
+::placeholder {
+	padding-left: 32px;
+	font-size: 16px;
 }
 
 h1 {
@@ -266,6 +265,13 @@ td:nth-child(2) {
 	box-shadow: 0px 0px 22px rgb(29, 29, 29);
 }
 
+.noMore {
+	transition: 225ms ease;
+}
+.noMore:hover {
+	animation: swiggle 250ms forwards ease;
+}
+
 /* custom scrollbar */
 /* width */
 ::-webkit-scrollbar {
@@ -293,8 +299,84 @@ td:nth-child(2) {
 	font-style: normal;
 	font-weight: 400;
 	src: url('./fonts/anybody-v9-latin-regular.eot'); /* IE9 Compat Modes */
-	src: url('./fonts/anybody-v9-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('./fonts/anybody-v9-latin-regular.woff2') format('woff2'),
+	src: url('./fonts/anybody-v9-latin-regular.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('./fonts/anybody-v9-latin-regular.woff2') format('woff2'),
 		/* Super Modern Browsers */ url('./fonts/anybody-v9-latin-regular.woff') format('woff'),
 		/* Modern Browsers */ url('./fonts/anybody-v9-latin-regular.ttf') format('truetype'),
 		/* Safari, Android, iOS */ url('./fonts/anybody-v9-latin-regular.svg#Anybody') format('svg'); /* Legacy iOS */
+}
+
+@keyframes swiggle {
+	0% {
+		transform: translate(0, 0);
+	}
+	15% {
+		transform: translate(1rem, 0);
+	}
+
+	35% {
+		transform: translate(-1rem, 0);
+	}
+
+	55% {
+		transform: translate(1rem, 0);
+	}
+
+	80% {
+		transform: translate(-1rem, 0);
+	}
+
+	100% {
+		transform: translate(0, 0);
+	}
+}
+
+@media (max-width: 485px) {
+	.singlePokemon {
+		margin: 8px;
+	}
+	.allPokemon {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+	header img {
+		margin-left: 24px;
+		height: 40px;
+		object-fit: cover;
+	}
+	.header-right {
+		margin-right: 24px;
+	}
+}
+
+@media (max-width: 400px) {
+	#pokedex {
+		width: 75vw;
+	}
+	header img {
+		display: none;
+	}
+	header {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media (max-width: 400px) {
+	.pokemonImage {
+		width: 175px;
+		height: 175px;
+	}
+	#pokemonName {
+		font-size: 35px;
+	}
+	.id {
+		font-size: 18px;
+	}
+}
+@media (max-width: 340px) {
+	#pokemonName {
+		font-size: 25px;
+	}
 }

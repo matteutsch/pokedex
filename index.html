@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/png" href="img/icons/pokeball.png" sizes="any" />
+		<link rel="icon" type="image/png" href="img/icons/pokeball_transparent.png" sizes="any" />
 
 		<title>Pokedex</title>
 
@@ -14,20 +14,27 @@
 		<script src="templates/render.js"></script>
 	</head>
 
-	<body onclick="document.getElementById('search').value = ''" onload="loadStartPokemon()">
-		<header onclick="document.getElementById('search').value = ''">
+	<body onload="loadStartPokemon()">
+		<header>
 			<img src="img/icons/pokemon_headline.png" />
-			<div>
-				<input class="search" id="search" type="text" placeholder="" oninput="filterPokemon()" />
+			<div class="header-right">
+				<input
+					class="search"
+					id="search"
+					type="text"
+					onfocus="this.placeholder= 'search for Pokémon...'"
+					onblur="this.placeholder ='', this.value=this.defaultValue"
+					;
+					oninput="filterPokemon()"
+				/>
 			</div>
-			<!--onfocus="this.placeholder= 'search for Pokémon...'"-->
 		</header>
 
 		<div id="allPokemon" class="allPokemon"></div>
 
 		<div id="overlay" class="d-none" onclick="hidePokeCard()"></div>
 		<div class="bottom">
-			<button class="loadMore" onclick="loadMorePokemon()">Load More Pokémon</button>
+			<button id="loadMoreButton" class="loadMore" onclick="loadMorePokemon()">Load More Pokémon</button>
 		</div>
 	</body>
 </html>

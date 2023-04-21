@@ -2,6 +2,7 @@ let sourceOfPokemon = [];
 let allPokemon = [];
 let onlyPokemonNames = [];
 let limit;
+let maxLimit = 160;
 let foundPokemon = [];
 
 function filterPokemon() {
@@ -13,14 +14,11 @@ function filterPokemon() {
 			console.log('nothing found');
 		} else {
 			let name = allPokemon['results'][i]['name'];
-			console.log('i will push i:', i);
 			if (name in foundPokemon) {
-				console.log('pokemon already found :)');
 			} else {
 				foundPokemon[name] = {};
 				foundPokemon[name]['results'] = {};
 				foundPokemon[name]['results'][i] = allPokemon['results'][i];
-				console.log('foundPokemon:', foundPokemon);
 			}
 		}
 		console.log('index', index);
@@ -30,7 +28,7 @@ function filterPokemon() {
 
 async function loadStartPokemon() {
 	// get all pokemon for display in allPokemon
-
+	document.getElementById(`allPokemon`).innerHTML = '';
 	limit = 40;
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 	let response = await fetch(url);
@@ -38,23 +36,22 @@ async function loadStartPokemon() {
 
 	renderAllPokemon();
 	console.log('alle pokemon', allPokemon);
-	loadMorePokemon();
 }
 
 async function loadMorePokemon() {
 	startValue = limit;
 	if (limit == 40) {
 		limit += 20;
-		console.log('limit=limit +20', limit);
 	} else if (limit >= 60) {
 		limit += 20;
-		console.log('limit +20', limit);
 	}
-
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 	let response = await fetch(url);
 	allPokemon = await response.json();
 	renderMorePokemon(startValue, limit);
+	if (limit == maxLimit) {
+		disableBtn();
+	}
 }
 
 async function loadPokemonInfo(i) {
@@ -62,7 +59,7 @@ async function loadPokemonInfo(i) {
 	let url = allPokemon['results'][i]['url'];
 	let response = await fetch(url);
 	let currentPokemon = await response.json();
-	sourceOfPokemon.push(currentPokemon);
+	sourceOfPokemon[i] = currentPokemon;
 
 	let pokeImage = currentPokemon['sprites']['other']['home']['front_default'];
 	let pokeType = currentPokemon['types'][0]['type']['name'].charAt(0).toUpperCase() + currentPokemon['types'][0]['type']['name'].slice(1);
@@ -145,4 +142,16 @@ function showPokeCard(i) {
 function hidePokeCard() {
 	document.getElementById('overlay').classList.add('d-none');
 	document.body.style.overflow = 'auto';
+}
+
+function disableBtn() {
+	document.getElementById('loadMoreButton').disabled = true;
+	document.getElementById('loadMoreButton').innerHTML = 'No more Pokémon';
+	document.getElementById('loadMoreButton').classList.add('noMore');
+}
+
+function enableBtn() {
+	document.getElementById('loadMoreButton').disabled = false;
+	document.getElementById('loadMoreButton').innerHTML = 'Load more Pokémon';
+	document.getElementById('loadMoreButton').classList.remove('noMore');
 }
