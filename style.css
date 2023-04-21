@@ -78,7 +78,7 @@ header img {
 .search:focus {
 	outline: none;
 	padding-right: 8px;
-	padding-left: 8px;
+	padding-left: 40px;
 	box-shadow: 0px 0px 10px #fecc00;
 	border-radius: 8px;
 	background-size: 24px 24px;
@@ -88,7 +88,6 @@ header img {
 	background-color: #363942;
 }
 ::placeholder {
-	padding-left: 32px;
 	font-size: 16px;
 }
 
