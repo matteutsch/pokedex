@@ -11,7 +11,6 @@ function filterPokemon() {
 	for (let i = 0; i < onlyPokemonNames.length; i++) {
 		let index = onlyPokemonNames[i].indexOf(input);
 		if (index == -1) {
-			console.log('nothing found');
 		} else {
 			let name = allPokemon['results'][i]['name'];
 			if (name in foundPokemon) {
@@ -21,21 +20,18 @@ function filterPokemon() {
 				foundPokemon[name]['results'][i] = allPokemon['results'][i];
 			}
 		}
-		console.log('index', index);
 	}
 	renderFoundPokemon();
 }
 
 async function loadStartPokemon() {
-	// get all pokemon for display in allPokemon
+	// get some pokemon for display in allPokemon
 	document.getElementById(`allPokemon`).innerHTML = '';
 	limit = 40;
 	let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`;
 	let response = await fetch(url);
 	allPokemon = await response.json();
-
 	renderAllPokemon();
-	console.log('alle pokemon', allPokemon);
 }
 
 async function loadMorePokemon() {
@@ -97,44 +93,20 @@ function showPokeCard(i) {
 
 	let pokeCard = document.getElementById('overlay');
 
-	pokeCard.innerHTML = ``;
-	pokeCard.innerHTML = `
-  <div id="pokedex" onclick="event.stopPropagation()" >
-  <div class="card-head">
-    <p id="pokemonName">${pokeName}</p>
-    <p id="id" class="id"># ${i + 1}</p>
-  </div>
-  <div class="presentation">
-    <div class="sides"><img id="firstPokemon" onclick="showPokeCard(${prevIndex})" class="miniPoke" src="${prevImg}" /></div>
-    <div class="center"><img id="pokemonImage" class="pokemonImage" src="${pokeImage}" /></div>
-    <div class="sides"><img id="lastPokemon" onclick="showPokeCard(${(i, nextIndex)})" class="miniPoke" src="${nextImg}" /></div>
-  </div>
-  <div class="info-container" id="infoContainer">
-  <div w3-include-html="chart.html"></div>
-    <table>
-      <tr>
-        <td>Type :</td>
-        <td id="type">${pokeType}</td>
-      </tr>
-      <tr>
-        <td>Weight :</td>
-        <td id="weight">${pokeWeight}</td>
-      </tr>
-      <tr>
-        <td>Base HP :</td>
-        <td id="hp">${pokeHp}</td>
-      </tr>
-      <tr>
-        <td>Base Attack :</td>
-        <td id="attack">${pokeAtt}</td>
-      </tr>
-      <tr>
-        <td>Base Defense :</td>
-        <td id="defense">${pokeDef}</td>
-      </tr>
-    </table>
-  </div>
-  </div>`;
+	pokeCard.innerHTML = generatePokedexHTML(
+		pokeName,
+		i,
+		prevIndex,
+		prevImg,
+		pokeImage,
+		nextIndex,
+		nextImg,
+		pokeType,
+		pokeWeight,
+		pokeHp,
+		pokeAtt,
+		pokeDef
+	);
 	changeSingleTypeColor(pokeType);
 	document.getElementById(`overlay`).classList.remove('d-none');
 }

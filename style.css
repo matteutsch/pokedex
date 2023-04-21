@@ -3,10 +3,10 @@ body {
 	background-color: #363942;
 	background-image: url('img/icons/pokeball_transparent.png');
 	background-repeat: no-repeat;
-	background-size: 90vh;
+	background-size: 82vh;
 	background-attachment: fixed;
 	background-position-x: center;
-	background-position-y: bottom;
+	background-position-y: 14vh;
 	font-family: 'Anybody';
 }
 p {
@@ -331,6 +331,12 @@ td:nth-child(2) {
 	}
 }
 
+@media (max-width: 800px) {
+	body {
+		background-size: 90vw;
+		background-position: center;
+	}
+}
 @media (max-width: 485px) {
 	.singlePokemon {
 		margin: 8px;
@@ -347,19 +353,9 @@ td:nth-child(2) {
 	.header-right {
 		margin-right: 24px;
 	}
-}
-
-@media (max-width: 400px) {
-	#pokedex {
-		width: 75vw;
-	}
-	header img {
-		display: none;
-	}
-	header {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	body {
+		background-size: 90vw;
+		background-position: center;
 	}
 }
 
@@ -373,6 +369,14 @@ td:nth-child(2) {
 	}
 	.id {
 		font-size: 18px;
+	}
+	#pokedex {
+		width: 75vw;
+	}
+	header img {
+		height: 40px;
+		padding: 0;
+		margin-left: 0;
 	}
 }
 @media (max-width: 340px) {

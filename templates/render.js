@@ -1,5 +1,5 @@
 function renderFoundPokemon() {
-	// rendering singlePokemon in allPokemon with few infos
+	// rendering found Pokemon in allPokemon with few infos
 
 	document.getElementById(`allPokemon`).innerHTML = '';
 	for (let name in foundPokemon) {
@@ -39,6 +39,7 @@ function renderMorePokemon(startValue, limit) {
 }
 
 function generatePokemonHTML(i, pokemonName) {
+	//generating HTML for all render Funktions
 	return `
   <div id="singlePokemon${i}" class="singlePokemon" onclick="showPokeCard(${i})">
   <div class="PokeHeader"> <p># ${i + 1}</p><p>${pokemonName}</p>
@@ -47,4 +48,45 @@ function generatePokemonHTML(i, pokemonName) {
   <div id="pokeType${i}" class="type">type</div>
   </div>
   `;
+}
+
+function generatePokedexHTML(pokeName, i, prevIndex, prevImg, pokeImage, nextIndex, nextImg, pokeType, pokeWeight, pokeHp, pokeAtt, pokeDef) {
+	// generating HTML for showPokeCard();
+	return `
+  <div id="pokedex" onclick="event.stopPropagation()" >
+  <div class="card-head">
+    <p id="pokemonName">${pokeName}</p>
+    <p id="id" class="id"># ${i + 1}</p>
+  </div>
+  <div class="presentation">
+    <div class="sides"><img id="firstPokemon" onclick="showPokeCard(${prevIndex})" class="miniPoke" src="${prevImg}" /></div>
+    <div class="center"><img id="pokemonImage" class="pokemonImage" src="${pokeImage}" /></div>
+    <div class="sides"><img id="lastPokemon" onclick="showPokeCard(${(i, nextIndex)})" class="miniPoke" src="${nextImg}" /></div>
+  </div>
+  <div class="info-container" id="infoContainer">
+  <div w3-include-html="chart.html"></div>
+    <table>
+      <tr>
+        <td>Type :</td>
+        <td id="type">${pokeType}</td>
+      </tr>
+      <tr>
+        <td>Weight :</td>
+        <td id="weight">${pokeWeight}</td>
+      </tr>
+      <tr>
+        <td>Base HP :</td>
+        <td id="hp">${pokeHp}</td>
+      </tr>
+      <tr>
+        <td>Base Attack :</td>
+        <td id="attack">${pokeAtt}</td>
+      </tr>
+      <tr>
+        <td>Base Defense :</td>
+        <td id="defense">${pokeDef}</td>
+      </tr>
+    </table>
+  </div>
+  </div>`;
 }
